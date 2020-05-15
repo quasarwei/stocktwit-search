@@ -1,6 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Search from './components/search';
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
           Stock tweets
         </a>
       </header>
+      <Search />
     </div>
   );
 }
