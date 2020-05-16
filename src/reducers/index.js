@@ -1,3 +1,5 @@
+import { combineReducers } from 'redux';
+
 const searchTerms = (state = [], action) => {
   let newState = [...state];
   switch (action.type) {
@@ -20,4 +22,19 @@ const searchTerms = (state = [], action) => {
   }
 };
 
-export default searchTerms;
+const tweets = (state = [], action) => {
+  let newState = [...state];
+  switch (action.type) {
+    case 'add-tweet':
+      return [...state, action.payload];
+    default:
+      return state;
+  }
+};
+
+const allReducers = combineReducers({
+  searchTerms,
+  tweets
+});
+
+export default allReducers;

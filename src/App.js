@@ -4,9 +4,11 @@ import Search from './components/search';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeTerm } from './actions';
 import SearchTerms from './components/searchterms';
+import TweetCard from './components/tweetcard';
 
 export default function App() {
-  const terms = useSelector(state => state);
+  const terms = useSelector(state => state.searchTerms);
+  const tweets = useSelector(state => state.tweets);
   const dispatch = useDispatch();
 
   const handleRemoveTerm = term => {
@@ -27,6 +29,8 @@ export default function App() {
       </header>
 
       <Search />
+
+      {/* entered search terms */}
       {terms &&
         terms.map((term, i) => (
           <SearchTerms
@@ -34,6 +38,11 @@ export default function App() {
             removeTerm={term => handleRemoveTerm(term)}
             key={`termID_${i}`}
           />
+        ))}
+
+      {tweets &&
+        tweets.map((tweet, i) => (
+          <TweetCard tweet={tweet} key={`tweetID_${i}`} />
         ))}
     </div>
   );

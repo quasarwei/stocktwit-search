@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTerm, removeTerm } from '../actions';
+import { addTerm, removeTerm, addTweet } from '../actions';
 import stocktwitService from '../services/stocktwit-service';
 
 export default function Search() {
@@ -15,8 +15,12 @@ export default function Search() {
     stocktwitService.getSymbol(term);
 
     try {
-      const stjson = await stocktwitService.getSymbol(term);
-      // console.log(stjson);
+      const symbolData = await stocktwitService.getSymbol(term);
+      console.log(symbolData);
+
+      symbolData.messages.forEach(message => {
+        dispatch(addTweet(message));
+      });
     } catch (e) {
       console.log(e.errors[0].message);
     }
