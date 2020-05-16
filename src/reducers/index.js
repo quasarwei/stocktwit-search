@@ -1,14 +1,18 @@
 const searchTerms = (state = [], action) => {
-  let newState = [...state];
+  // const newState = [...state];
   switch (action.type) {
     case 'add':
-      if (!newState.includes(action.payload.toUpper()))
-        return newState.add(action.payload.toUpper());
-      return newState;
+      if (!state.includes(action.payload.toUpperCase())) {
+        console.log(action.payload);
+        console.log(state);
+        return [...state, action.payload.toUpperCase()];
+        return state.push(action.payload.toUpperCase());
+      }
+      return state;
     case 'remove':
-      if (newState.includes(action.payload.toUpper()))
-        return newState.remove(action.payload);
-      return newState;
+      if (state.includes(action.payload.toUpperCase()))
+        return state.remove(action.payload);
+      return state;
     default:
       return state;
   }
