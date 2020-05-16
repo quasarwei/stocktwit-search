@@ -9,8 +9,8 @@ export default function App() {
   const terms = useSelector(state => state);
   const dispatch = useDispatch();
 
-  const handleRemoveTerm = () => {
-    dispatch(removeTerm());
+  const handleRemoveTerm = term => {
+    dispatch(removeTerm(term));
   };
 
   return (
@@ -28,7 +28,13 @@ export default function App() {
 
       <Search />
       {terms &&
-        terms.map((term, i) => <SearchTerms term={term} key={`termID_${i}`} />)}
+        terms.map((term, i) => (
+          <SearchTerms
+            term={term}
+            removeTerm={term => handleRemoveTerm(term)}
+            key={`termID_${i}`}
+          />
+        ))}
     </div>
   );
 }

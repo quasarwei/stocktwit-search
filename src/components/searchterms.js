@@ -6,10 +6,11 @@ export default function SearchTerms(props) {
   const handleRemoveTerm = e => {
     e.preventDefault();
   };
+
   return (
     <div>
       <span>{props.term}</span>
-      <button>x</button>
+      <button onClick={() => props.removeTerm(props.term)}>x</button>
     </div>
   );
 }

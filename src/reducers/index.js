@@ -10,8 +10,9 @@ const searchTerms = (state = [], action) => {
       return state;
     case 'remove':
       let element = state.indexOf(action.payload.toUpperCase());
-      if (element) {
-        newState.splice(element, action.payload.length());
+      if (element != null) {
+        console.log(`element to remove index: ${element}`);
+        newState.splice(element, 1);
       }
       // if (state.includes(action.payload.toUpperCase()))
       //   return state.remove(action.payload);
