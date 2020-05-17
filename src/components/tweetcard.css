@@ -3,13 +3,37 @@
   padding: 0.5rem 1rem;
   margin: 0.5rem auto;
   width: 90%;
-  max-width: 800px;
+  max-width: 720px;
 }
 
 .tweet__body {
   text-align: left;
 }
 
+.tweet-heading {
+  display: flex;
+  justify-content: space-between;
+}
+
 .tweet__user {
   text-align: right;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.user-info__avatar {
+  margin-right: 1rem;
+}
+
+.date {
+  display: flex;
+  justify-content: flex-end;
+  color: #404040;
+  font-size: 14px;
 }

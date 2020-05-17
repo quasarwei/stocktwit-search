@@ -17,6 +17,8 @@ export default function Search() {
     try {
       const symbolData = await stocktwitService.getSymbol(term);
       console.log(symbolData);
+
+      // check if searchterm has already been entered
       const termIndex = terms.findIndex(t => t.symbol === term);
       if (termIndex === -1) {
         if (symbolData) {
@@ -47,7 +49,13 @@ export default function Search() {
 
   return (
     <form onSubmit={e => handleAddTerm(e)}>
-      <input type="text" onChange={e => handleInput(e)} />
+      <input
+        name="symbol-search"
+        type="text"
+        id="searchbox"
+        onChange={e => handleInput(e)}
+        autofocus
+      />
     </form>
   );
 }
