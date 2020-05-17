@@ -1,0 +1,15 @@
+.tweet {
+  border: 1px solid black;
+  padding: 0.5rem 1rem;
+  margin: 0.5rem auto;
+  width: 90%;
+  max-width: 800px;
+}
+
+.tweet__body {
+  text-align: left;
+}
+
+.tweet__user {
+  text-align: right;
+}
