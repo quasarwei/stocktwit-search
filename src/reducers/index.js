@@ -4,15 +4,20 @@ const searchTerms = (state = [], action) => {
   let newState = [...state];
   switch (action.type) {
     case 'add':
-      if (!state.includes(action.payload.toUpperCase())) {
-        // console.log(action.payload);
-        return [...state, action.payload.toUpperCase()];
+      // check if searchterm has already been entered
+      const index = state.findIndex(
+        term => term.symbol === action.payload.symbol
+      );
+      if (index === -1) {
+        return [...state, action.payload];
       }
       return state;
     case 'remove':
-      let element = state.indexOf(action.payload.toUpperCase());
-      if (element != null) {
-        newState.splice(element, 1);
+      const indexToRemove = state.findIndex(
+        term => term.symbol === action.payload.symbol
+      );
+      if (indexToRemove !== -1) {
+        newState.splice(indexToRemove, 1);
       }
       // if (state.includes(action.payload.toUpperCase()))
       //   return state.remove(action.payload);
@@ -27,6 +32,8 @@ const tweets = (state = [], action) => {
   switch (action.type) {
     case 'add-tweet':
       return [...state, action.payload];
+    case 'remove-tweets':
+      return;
     default:
       return state;
   }

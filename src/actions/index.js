@@ -12,3 +12,8 @@ export const addTweet = tweet => ({
   type: 'add-tweet',
   payload: tweet
 });
+
+export const removeTweets = symbol => ({
+  type: 'remove-tweets',
+  payload: symbol
+});

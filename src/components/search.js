@@ -11,9 +11,7 @@ export default function Search() {
   const handleAddTerm = async e => {
     e.preventDefault();
     e.target.reset();
-    dispatch(addTerm(term));
     // check if term has been added first
-    stocktwitService.getSymbol(term);
 
     try {
       const symbolData = await stocktwitService.getSymbol(term);
@@ -28,6 +26,8 @@ export default function Search() {
           let newMessage = { ...message, body: linkedBody };
           dispatch(addTweet(newMessage));
         });
+        let searchterm = { symbol: term, count: symbolData.messages.length };
+        dispatch(addTerm(searchterm));
       }
     } catch (e) {
       // console.log(e.errors[0].message);
@@ -37,7 +37,8 @@ export default function Search() {
 
   const handleInput = e => {
     // e.preventDefault();
-    setTerm(e.target.value);
+    e.target.value = e.target.value.toUpperCase();
+    setTerm(e.target.value.toUpperCase());
   };
 
   return (
