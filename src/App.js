@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import Search from './components/search';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeTerm } from './actions';
+import { removeTerm, removeTweets } from './actions';
 import SearchTerms from './components/searchterms';
 import TweetCard from './components/tweetcard';
 
@@ -13,6 +13,7 @@ export default function App() {
 
   const handleRemoveTerm = term => {
     dispatch(removeTerm(term));
+    dispatch(removeTweets(term.symbol));
   };
 
   return (
