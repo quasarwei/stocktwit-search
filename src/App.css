@@ -2,33 +2,24 @@
   text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
 .App-header {
   background-color: #282c34;
-  display: flex;
-  flex-direction: column;
+  padding: .5rem 1rem;
   align-items: center;
-  justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 1rem;
-}
-
-.App-link {
-  color: #61dafb;
 }
 
 
 .searchterms {
   display: flex;
   width: 90%;
+  justify-content: flex-start;
+  flex-wrap: wrap;
   max-width: 720px;
   margin: .5rem auto;
-  padding:.5rem .25rem ;
+
+  /* padding:.5rem .25rem ; */
   /* border: 1px solid black; */
 }

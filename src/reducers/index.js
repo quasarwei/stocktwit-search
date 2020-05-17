@@ -4,7 +4,7 @@ const searchTerms = (state = [], action) => {
   let newState = [...state];
   switch (action.type) {
     case 'add':
-      return [action.payload, ...state];
+      return [...state, action.payload];
     case 'remove':
       const indexToRemove = state.findIndex(
         term => term.symbol === action.payload.symbol
@@ -22,7 +22,7 @@ const tweets = (state = [], action) => {
   switch (action.type) {
     case 'add-tweet':
       // check if twit has already been added by another searchterm
-      if (state.find(tweet => tweet.id === action.payload.id)) return state;
+      // if (state.find(tweet => tweet.id === action.payload.id)) return state;
       return [...state, action.payload];
     case 'remove-tweets':
       const filteredTweets = state.filter(tweet => {

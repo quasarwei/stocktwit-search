@@ -12,6 +12,11 @@ export default function App() {
   const tweets = useSelector(state => state.tweets);
   const dispatch = useDispatch();
 
+  const [tweetIDs, setTweetIDs] = useState([]);
+
+  // use state to store tweet IDs
+  // when display, check if tweet ID has already been displayed
+
   const handleRemoveTerm = term => {
     dispatch(removeTerm(term));
     dispatch(removeTweets(term.symbol));
@@ -20,14 +25,7 @@ export default function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
           Stock tweets
-        </a>
       </header>
 
       <Search />
@@ -45,9 +43,13 @@ export default function App() {
       </div>
 
       {tweets &&
-        tweets.map((tweet, i) => (
-          <TweetCard tweet={tweet} key={`tweetID_${i}`} />
-        ))}
+        tweets.map((tweet, i) => {
+          // if (tweetIDs.includes(tweet.id) === false) {
+            // setTweetIDs(...tweetIDs, tweet.id);
+          return <TweetCard tweet={tweet} key={tweet.id} />
+
+          // }
+      })}
     </div>
   );
 }

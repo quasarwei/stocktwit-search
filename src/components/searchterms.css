@@ -4,6 +4,7 @@
   display: flex;
   align-items: center;
   margin: .15rem .25rem;
+  margin-left: 0;
 }
 
 .searchterm span {
@@ -25,4 +26,5 @@ button {
 button:hover {
   background-color: black;
   color: white;
+  cursor: pointer;
 }

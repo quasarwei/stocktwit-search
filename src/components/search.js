@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addTerm, removeTerm, addTweet } from '../actions';
+import { addTerm, removeTerm, removeTweets, addTweet } from '../actions';
 import stocktwitService from '../services/stocktwit-service';
+
+import SearchTerms from './searchterms';
 
 import './search.css';
 
@@ -10,6 +12,7 @@ export default function Search() {
   const [error, setError] = useState();
   const dispatch = useDispatch();
   const terms = useSelector(state => state.searchTerms);
+  const tweets = useSelector(state => state.tweets);
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
   const handleAddTerm = async () => {
@@ -21,6 +24,9 @@ export default function Search() {
       const termIndex = terms.findIndex(t => t.symbol === term);
       if (termIndex === -1) {
         if (symbolData) {
+          let searchterm = { symbol: term, count: symbolData.messages.length };
+          dispatch(addTerm(searchterm));
+
           symbolData.messages.forEach(message => {
             let linkedBody = message.body.replace(
               urlRegex,
@@ -28,18 +34,18 @@ export default function Search() {
                 `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
             );
             let newMessage = { ...message, body: linkedBody };
+            // dispatch(addTweet(message));
             dispatch(addTweet(newMessage));
           });
-          let searchterm = { symbol: term, count: symbolData.messages.length };
-          dispatch(addTerm(searchterm));
         }
+        console.log('exited foreach')
         setError('');
       } else {
 
       setError('symbol already entered!');
       }
     } catch (e) {
-      setError(e.errors[0].message);
+      // setError(e.errors[0].message);
     }
   };
   
@@ -65,6 +71,11 @@ export default function Search() {
     }
   };
 
+  const handleRemoveTerm = term => {
+    dispatch(removeTerm(term));
+    dispatch(removeTweets(term.symbol));
+  };
+
   return (
     <form id='search-form' onSubmit={e => handleSubmitForm(e)}>
       <input
@@ -72,8 +83,20 @@ export default function Search() {
         type="text"
         id="searchbox"
         onChange={e => handleInput(e)}
+        placeholder='Enter stock symbol'
         autoFocus
-      />
+      /> 
+      
+      {/* <div className='searchterms'> */}
+      {/* {terms && */}
+      {/*   terms.slice(0).reverse().map((term, i) => ( */}
+      {/*     <SearchTerms */}
+      {/*       term={term} */}
+      {/*       removeTerm={term => handleRemoveTerm(term)} */}
+      {/*       key={`termID_${i}`} */}
+      {/*     /> */}
+      {/*   ))} */}
+      {/* </div> */}
       {error && <span className='error'>{error}</span>}
     </form>
   );
