@@ -16,8 +16,20 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  margin-bottom: 1rem;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+
+.searchterms {
+  display: flex;
+
+  width: 90%;
+  max-width: 720px;
+  margin: .5rem auto;
+  padding:.5rem .25rem ;
+  border: 1px solid black;
 }

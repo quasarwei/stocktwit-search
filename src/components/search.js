@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addTerm, removeTerm, addTweet } from '../actions';
 import stocktwitService from '../services/stocktwit-service';
 
+import './search.css';
+
 export default function Search() {
   const [term, setTerm] = useState(0);
   const dispatch = useDispatch();
@@ -54,7 +56,7 @@ export default function Search() {
         type="text"
         id="searchbox"
         onChange={e => handleInput(e)}
-        autofocus
+        autoFocus
       />
     </form>
   );

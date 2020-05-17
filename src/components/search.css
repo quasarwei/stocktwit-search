@@ -1,0 +1,15 @@
+form {
+  width: 90%;
+  display: grid;
+  max-width: 720px;
+  margin:.25rem auto;
+  padding:0;
+
+}
+#searchbox {
+  margin: 0 auto;
+  display: block;
+  width: 100%;
+  padding: .5rem .25rem;
+  height: 2rem;
+}
