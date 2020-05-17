@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Search from './components/search';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeTerm, removeTweets } from './actions';
@@ -7,6 +7,7 @@ import TweetCard from './components/tweetcard';
 import './App.css';
 
 export default function App() {
+
   const terms = useSelector(state => state.searchTerms);
   const tweets = useSelector(state => state.tweets);
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function App() {
       {/* entered search terms */}
       <div className='searchterms'>
       {terms &&
-        terms.map((term, i) => (
+        terms.slice(0).reverse().map((term, i) => (
           <SearchTerms
             term={term}
             removeTerm={term => handleRemoveTerm(term)}

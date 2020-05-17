@@ -6,9 +6,6 @@ const stocktwitService = {
       .then(res =>
         !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
       )
-      .catch(e => {
-        console.log(e.errors[0].message);
-      });
   }
 };
 

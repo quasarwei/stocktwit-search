@@ -26,10 +26,9 @@
 
 .searchterms {
   display: flex;
-
   width: 90%;
   max-width: 720px;
   margin: .5rem auto;
   padding:.5rem .25rem ;
-  border: 1px solid black;
+  /* border: 1px solid black; */
 }

@@ -6,6 +6,10 @@
   margin: .15rem .25rem;
 }
 
+.searchterm span {
+  margin-right: .25rem;
+}
+
 button {
   background-color: white;
   width: 1.5rem;
