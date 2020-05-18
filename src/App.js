@@ -42,8 +42,8 @@ export default function App() {
         ))}
       </div>
 
-      {tweets &&
-        tweets.map((tweet, i) => {
+      {
+        tweets.map(tweet => {
           // if (tweetIDs.includes(tweet.id) === false) {
             // setTweetIDs(...tweetIDs, tweet.id);
           return <TweetCard tweet={tweet} key={tweet.id} />

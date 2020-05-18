@@ -34,6 +34,7 @@ export default function TweetCard(props) {
       </div>
       {/* this method puts users at risk to xss attacks, try and find another way */}
       <p className="tweet__body" dangerouslySetInnerHTML={makeBody()}></p>
+      {/* <p className="tweet__body" >{props.tweet.body}</p> */}
       {/* <span>{tweet_time}</span> */}
     </div>
   );
