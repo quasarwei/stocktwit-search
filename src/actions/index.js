@@ -3,6 +3,7 @@ export const addTerm = term => ({
   payload: term
 });
 
+
 export const removeTerm = term => ({
   type: 'remove',
   payload: term

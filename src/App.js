@@ -1,16 +1,16 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Search from './components/search';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeTerm, removeTweets } from './actions';
+import { useSelector, useDispatch, connect } from 'react-redux';
+import { removeTerm, removeTweets, addTerm, addTweet } from './actions';
 import SearchTerms from './components/searchterms';
 import TweetCard from './components/tweetcard';
 import './App.css';
 
-export default function App() {
+function App(props) {
 
-  const terms = useSelector(state => state.searchTerms);
-  const tweets = useSelector(state => state.tweets);
-  const dispatch = useDispatch();
+  // const terms = useSelector(state => state.searchTerms);
+  // const tweets = useSelector(state => state.tweets);
+  // const dispatch = useDispatch();
 
   const [tweetIDs, setTweetIDs] = useState([]);
 
@@ -18,9 +18,14 @@ export default function App() {
   // when display, check if tweet ID has already been displayed
 
   const handleRemoveTerm = term => {
-    dispatch(removeTerm(term));
-    dispatch(removeTweets(term.symbol));
+    props.dispatch(removeTerm(term));
+    props.dispatch(removeTweets(term.symbol));
   };
+
+   useEffect(() => {
+     console.log(`props symbol length: ${props.symbols.length}`);
+  }, [props.symbols]);
+
 
   return (
     <div className="App">
@@ -28,22 +33,24 @@ export default function App() {
           Stock tweets
       </header>
 
+      {/* search box */}
       <Search />
 
       {/* entered search terms */}
       <div className='searchterms'>
-      {terms &&
-        terms.slice(0).reverse().map((term, i) => (
+      {props.symbols &&
+        props.symbols.slice(0).reverse().map((term, i) => (
           <SearchTerms
             term={term}
             removeTerm={term => handleRemoveTerm(term)}
-            key={`termID_${i}`}
+            key={`${term.symbol}`}
           />
         ))}
       </div>
 
+      {/* tweet list */}
       {
-        tweets.map(tweet => {
+        props.tweets.map(tweet => {
           // if (tweetIDs.includes(tweet.id) === false) {
             // setTweetIDs(...tweetIDs, tweet.id);
           return <TweetCard tweet={tweet} key={tweet.id} />
@@ -53,3 +60,15 @@ export default function App() {
     </div>
   );
 }
+
+const mapStateToProps = state => {
+  return { symbols: state.searchTerms, tweets: state.tweets };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addTweet: () => dispatch(addTweet())
+  };
+};
+
+export default connect(mapStateToProps)(App);

@@ -1,7 +1,7 @@
 const stocktwitService = {
-  getSymbol(symbol) {
+  getSymbol(symbol,lasttweetID) {
     return fetch(
-      `https://orbis-stocktwits-search.herokuapp.com/api/2/streams/symbol/${symbol}.json`    )
+      `https://api.stocktwits.com/api/2/streams/symbol/${symbol}.json?since=${lasttweetID}`)
       .then(res =>
         !res.ok ? res.json().then(e => Promise.reject(e)) : res.json()
       )
@@ -9,3 +9,6 @@ const stocktwitService = {
 };
 
 export default stocktwitService;
+
+      // `https://orbis-stocktwits-search.herokuapp.com/api/2/streams/symbol/${symbol}.json`    )
+      // `https://api.stocktwits.com/api/2/streams/symbol/${symbol}.json`    )
