@@ -39,7 +39,7 @@ function Search(props) {
               url =>
                 `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
             );
-            let newMessage = { ...message, body: linkedBody, searchterm: term };
+            let newMessage = { ...message, body: linkedBody };
             // dispatch(addTweet(message));
             dispatch(addTweet(newMessage));
           });

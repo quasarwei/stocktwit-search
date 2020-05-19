@@ -15,7 +15,9 @@ export default function SearchTerms(props) {
   const [test, setTest] = useState(0);
   let testInterval;
   let testnum = props.termIndex;
-  let term =props.term
+  let term = props.term;
+
+  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
   useEffect(() => {
     updateTweets();
@@ -39,7 +41,7 @@ export default function SearchTerms(props) {
   const updateTweets = () => {
     fetchtweets = setInterval(async () => {
       const symbolData = await getNewTweets(term);
-      console.log(symbolData)
+      console.log(symbolData);
       const numMessages = symbolData.messages.length;
 
       if (numMessages) {
@@ -50,20 +52,28 @@ export default function SearchTerms(props) {
         };
         term = editedSearchTerm;
         props.editTerm(editedSearchTerm);
+
+        symbolData.messages.forEach(message => {
+          let linkedBody = message.body.replace(
+            urlRegex,
+            url =>
+              `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+          );
+          let newMessage = { ...message, body: linkedBody };
+          props.addTweet(newMessage);
+        });
       }
       console.log(numMessages);
     }, 60000);
   };
 
-  const getNewTweets = async (term) => {
-      const symbolData = await stocktwitService.getSymbol(
-        term.symbol,
-        term.lastTweetID
-      );
+  const getNewTweets = async term => {
+    const symbolData = await stocktwitService.getSymbol(
+      term.symbol,
+      term.lastTweetID
+    );
     return symbolData;
-
-  }
-
+  };
 
   const stopUpdateTweets = () => {
     clearInterval(fetchtweets);

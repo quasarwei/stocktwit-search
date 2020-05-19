@@ -43,6 +43,7 @@ function App(props) {
             term={term}
             removeTerm={term => handleRemoveTerm(term)}
             editTerm={term=> props.dispatch(editTerm(term))}
+            addTweet={message=> props.dispatch(addTweet(message))}
             termIndex={i}
             key={`${term.symbol}`}
           />
