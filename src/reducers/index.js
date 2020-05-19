@@ -13,6 +13,14 @@ const searchTerms = (state = [], action) => {
         newState.splice(indexToRemove, 1);
       }
       return newState;
+    case 'edit':
+      const indexToEdit = state.findIndex(
+        term => term.symbol === action.payload.symbol
+      );
+      if (indexToEdit !== -1) {
+        newState.splice(indexToEdit, 1, action.payload);
+      }
+      return newState;
     default:
       return state;
   }

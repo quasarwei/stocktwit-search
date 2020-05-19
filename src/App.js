@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Search from './components/search';
 import { useSelector, useDispatch, connect } from 'react-redux';
-import { removeTerm, removeTweets, addTerm, addTweet } from './actions';
+import { removeTerm, removeTweets, addTerm, addTweet, editTerm } from './actions';
 import SearchTerms from './components/searchterms';
 import TweetCard from './components/tweetcard';
 import './App.css';
@@ -38,10 +38,12 @@ function App(props) {
       {/* entered search terms */}
       <div className='searchterms'>
       {props.symbols &&
-        props.symbols.slice(0).reverse().map((term, i) => (
+        props.symbols.map((term, i) => (
           <SearchTerms
             term={term}
             removeTerm={term => handleRemoveTerm(term)}
+            editTerm={term=> props.dispatch(editTerm(term))}
+            termIndex={i}
             key={`${term.symbol}`}
           />
         ))}
@@ -66,7 +68,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addTweet: () => dispatch(addTweet())
+    addTweet: () => dispatch(addTweet()),
+    editTerm: () => dispatch(editTerm())
   };
 };
 
