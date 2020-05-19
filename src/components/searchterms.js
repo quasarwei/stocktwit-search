@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { removeTerm } from '../actions';
+import React, { useEffect } from 'react';
 import stocktwitService from '../services/stocktwit-service';
 
 import './searchterms.css';
@@ -8,7 +7,6 @@ export default function SearchTerms(props) {
   let fetchtweets;
 
   // const [count, setCount] = useState(props.term.count);
-  // console.log(`reset state: ${lastID}`);
   let term = props.term;
 
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
@@ -19,18 +17,6 @@ export default function SearchTerms(props) {
       stopUpdateTweets();
     };
   }, []);
-
-  // const setLoop= () => {
-  //   testInterval = setInterval(() => {
-  //     testnum = updateTest(testnum);
-  //     console.log(testnum);
-  //   }
-  //   , 1000)}
-
-  // const updateTest = (num) => {
-  //     setTest(num +2);
-  //   return num + 2;
-  // }
 
   const updateTweets = () => {
     fetchtweets = setInterval(async () => {

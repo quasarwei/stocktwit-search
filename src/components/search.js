@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { connect, useSelector, useDispatch } from 'react-redux';
-import { addTerm, removeTerm, removeTweets, addTweet } from '../actions';
+import { useSelector } from 'react-redux';
 import stocktwitService from '../services/stocktwit-service';
 
 import SearchTerms from './searchterms';
 
 import './search.css';
 
-function Search(props) {
+export default function Search(props) {
   const [term, setTerm] = useState(0);
   const [error, setError] = useState();
-  const dispatch = useDispatch();
+
   const terms = useSelector(state => state.searchTerms);
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
@@ -30,7 +29,8 @@ function Search(props) {
             count: symbolData.messages.length,
             lastTweetID: symbolData.messages[0].id
           };
-          dispatch(addTerm(searchterm));
+          // dispatch(addTerm(searchterm));
+          props.addTerm(searchterm);
 
           // add tweet to store
           symbolData.messages.forEach(message => {
@@ -41,7 +41,8 @@ function Search(props) {
             );
             let newMessage = { ...message, body: linkedBody };
             // dispatch(addTweet(message));
-            dispatch(addTweet(newMessage));
+            // dispatch(addTweet(newMessage));
+            props.addTweet(newMessage);
           });
         }
         console.log('exited foreach');
@@ -78,10 +79,10 @@ function Search(props) {
     }
   };
 
-  const handleRemoveTerm = term => {
-    dispatch(removeTerm(term));
-    dispatch(removeTweets(term.symbol));
-  };
+  // const handleRemoveTerm = term => {
+  //   dispatch(removeTerm(term));
+  //   dispatch(removeTweets(term.symbol));
+  // };
 
   return (
     <div id="search-bar">
@@ -90,9 +91,9 @@ function Search(props) {
           terms.map((term, i) => (
             <SearchTerms
               term={term}
-              removeTerm={term => handleRemoveTerm(term)}
-              editTerm={term => handleRemoveTerm(term)}
-              addTweet={term => handleRemoveTerm(term)}
+              removeTerm={term => props.removeTerm(term)}
+              editTerm={term => props.editTerm(term)}
+              addTweet={term => props.addTweet(term)}
               termIndex={i}
               key={`${term.symbol}`}
             />
@@ -114,15 +115,3 @@ function Search(props) {
     </div>
   );
 }
-
-const mapStateToProps = state => {
-  return { symbols: state.searchTerms };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    addTweet: () => dispatch(addTweet())
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Search);

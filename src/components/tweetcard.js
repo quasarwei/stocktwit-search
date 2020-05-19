@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { removeTerm } from '../actions';
+import React from 'react';
 import './tweetcard.css';
 
 export default function TweetCard(props) {
-  const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
-
   const makeBody = () => ({
     __html: props.tweet.body
   });
@@ -19,6 +15,7 @@ export default function TweetCard(props) {
           <img
             className="user-info__avatar"
             src={props.tweet.user.avatar_url}
+            alt="avatar"
           />
           <h4 className="tweet__user">{props.tweet.user.username}</h4>
         </div>

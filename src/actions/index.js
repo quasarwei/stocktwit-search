@@ -1,24 +1,24 @@
 export const addTerm = term => ({
-  type: 'add',
+  type: 'ADD-TERM',
   payload: term
 });
 
 export const removeTerm = term => ({
-  type: 'remove',
+  type: 'REMOVE-TERM',
   payload: term
 });
 
 export const editTerm = term => ({
-  type: 'edit',
+  type: 'EDIT-TERM',
   payload: term
 });
 
 export const addTweet = tweet => ({
-  type: 'add-tweet',
+  type: 'ADD-TWEET',
   payload: tweet
 });
 
 export const removeTweets = symbol => ({
-  type: 'remove-tweets',
+  type: 'REMOVE-TWEETS',
   payload: symbol
 });
