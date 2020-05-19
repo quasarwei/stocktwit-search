@@ -22,6 +22,7 @@ export default function TweetCard(props) {
           />
           <h4 className="tweet__user">{props.tweet.user.username}</h4>
         </div>
+        <span>${ props.tweet.id }</span>
         <span className="date">
           {tweet_time.toLocaleString('en-US', {
             year: 'numeric',

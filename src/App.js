@@ -19,11 +19,10 @@ function App(props) {
 
   const handleRemoveTerm = term => {
     props.dispatch(removeTerm(term));
-    props.dispatch(removeTweets(term.symbol));
+    props.dispatch(removeTweets({termToRemove: term.symbol, allSymbols:props.symbols.map(symbol => symbol.symbol) }));
   };
 
    useEffect(() => {
-     console.log(`props symbol length: ${props.symbols.length}`);
   }, [props.symbols]);
 
 
@@ -50,7 +49,7 @@ function App(props) {
 
       {/* tweet list */}
       {
-        props.tweets.map(tweet => {
+        props.tweets.sort((a,b) => b.id - a.id).map(tweet => {
           // if (tweetIDs.includes(tweet.id) === false) {
             // setTweetIDs(...tweetIDs, tweet.id);
           return <TweetCard tweet={tweet} key={tweet.id} />

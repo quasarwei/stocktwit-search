@@ -24,6 +24,7 @@ function Search(props) {
         console.log(symbolData);
 
         if (symbolData) {
+          // add search term to store
           let searchterm = {
             symbol: term,
             count: symbolData.messages.length,
@@ -31,13 +32,14 @@ function Search(props) {
           };
           dispatch(addTerm(searchterm));
 
+          // add tweet to store
           symbolData.messages.forEach(message => {
             let linkedBody = message.body.replace(
               urlRegex,
               url =>
                 `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
             );
-            let newMessage = { ...message, body: linkedBody };
+            let newMessage = { ...message, body: linkedBody, searchterm: term };
             // dispatch(addTweet(message));
             dispatch(addTweet(newMessage));
           });

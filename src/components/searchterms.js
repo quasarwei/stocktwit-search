@@ -9,13 +9,9 @@ export default function SearchTerms(props) {
   let fetchtweets;
 
   useEffect(() => {
-    console.log(`searchterm component for ${props.term.symbol} just mounted`);
     updateTweets();
     return () => {
       stopUpdateTweets();
-      console.log(
-        `searchterm component for ${props.term.symbol} has been unmounted`
-      );
     };
   }, []);
 
@@ -26,7 +22,7 @@ export default function SearchTerms(props) {
         props.term.lastTweetID
       );
       console.log(symbolData);
-    }, 3000);
+    }, 300000);
   };
 
   const stopUpdateTweets = () => {
