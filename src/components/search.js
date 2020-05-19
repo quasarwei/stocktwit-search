@@ -28,7 +28,7 @@ function Search(props) {
           let searchterm = {
             symbol: term,
             count: symbolData.messages.length,
-            lastTweetID: symbolData.messages[0].id,
+            lastTweetID: symbolData.messages[0].id
           };
           dispatch(addTerm(searchterm));
 
@@ -70,10 +70,10 @@ function Search(props) {
       inputdata[inputdata.length - 1] === ' '
     ) {
       if (inputdata.length > 1) {
-        document.getElementById('searchbox').value = '';
+        document.getElementById('search-input').value = '';
         handleAddTerm();
       } else {
-        document.getElementById('searchbox').value = '';
+        document.getElementById('search-input').value = '';
       }
     }
   };
@@ -84,28 +84,34 @@ function Search(props) {
   };
 
   return (
-    <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
-      <input
-        name="symbol-search"
-        type="text"
-        id="searchbox"
-        onChange={e => handleInput(e)}
-        placeholder="Enter stock symbol"
-        autoFocus
-      />
-
-      {/* <div className='searchterms'> */}
-      {/* {terms && */}
-      {/*   terms.slice(0).reverse().map((term, i) => ( */}
-      {/*     <SearchTerms */}
-      {/*       term={term} */}
-      {/*       removeTerm={term => handleRemoveTerm(term)} */}
-      {/*       key={`termID_${i}`} */}
-      {/*     /> */}
-      {/*   ))} */}
-      {/* </div> */}
+    <div id="search-bar">
+      <div className="searchterms">
+        {terms &&
+          terms.map((term, i) => (
+            <SearchTerms
+              term={term}
+              removeTerm={term => handleRemoveTerm(term)}
+              editTerm={term => handleRemoveTerm(term)}
+              addTweet={term => handleRemoveTerm(term)}
+              termIndex={i}
+              key={`${term.symbol}`}
+            />
+          ))}
+      </div>
       {error && <span className="error">{error}</span>}
-    </form>
+      <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
+        <input
+          name="symbol-search"
+          type="text"
+          id="search-input"
+          onChange={e => handleInput(e)}
+          placeholder="Enter stock symbol"
+          autoFocus
+        />
+
+        <button>search</button>
+      </form>
+    </div>
   );
 }
 

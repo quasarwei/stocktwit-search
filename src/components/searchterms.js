@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { removeTerm } from '../actions';
 import stocktwitService from '../services/stocktwit-service';
 
@@ -8,13 +7,8 @@ import './searchterms.css';
 export default function SearchTerms(props) {
   let fetchtweets;
 
-  const terms = useSelector(state => state.searchTerms);
   // const [count, setCount] = useState(props.term.count);
-  const [lastID, setLastID] = useState(props.term.lastTweetID);
   // console.log(`reset state: ${lastID}`);
-  const [test, setTest] = useState(0);
-  let testInterval;
-  let testnum = props.termIndex;
   let term = props.term;
 
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;

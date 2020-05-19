@@ -4,21 +4,27 @@
 
 .App-header {
   background-color: #282c34;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   align-items: center;
   font-size: calc(10px + 2vmin);
   color: white;
   margin-bottom: 1rem;
 }
 
-
 .searchterms {
   display: flex;
-  width: 90%;
+  flex-direction: row;
+
+  /* width: 90%; */
+  width: auto;
   justify-content: flex-start;
   flex-wrap: wrap;
-  max-width: 720px;
-  margin: .5rem auto;
+  /* max-width: 720px; */
+  margin: 0.5rem 0;
+  margin: 0;
+  /* border: 0.1px solid blue; */
+  /* flex-basis: 0; */
+  flex-grow: 0;
 
   /* padding:.5rem .25rem ; */
   /* border: 1px solid black; */

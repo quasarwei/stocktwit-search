@@ -1,14 +1,16 @@
 .searchterm {
   border: 1px solid black;
-  padding: .25rem .35rem;
+  padding: 0.25rem 0.35rem;
   display: flex;
   align-items: center;
-  margin: .15rem .25rem;
+  /* margin: 0.15rem 0.25rem; */
+  margin: 0 0.25rem;
   margin-left: 0;
+  height: 2rem;
 }
 
 .searchterm span {
-  margin-right: .25rem;
+  margin-right: 0.25rem;
 }
 
 button {
