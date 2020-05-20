@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import stocktwitService from '../services/stocktwit-service';
 
@@ -9,11 +9,16 @@ import './search.css';
 export default function Search(props) {
   const [term, setTerm] = useState(0);
   const [error, setError] = useState();
+  const [receivedTweets, setReceivedTweets] = useState([]);
 
   const terms = useSelector(state => state.searchTerms);
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
-  const handleAddTerm = async () => {
+  useEffect(() => {
+    dispatchTweets();
+  }, [receivedTweets]);
+
+  const handleGetTweets = async () => {
     try {
       // check if searchterm has already been entered
       const termIndex = terms.findIndex(t => t.symbol === term);
@@ -24,28 +29,22 @@ export default function Search(props) {
 
         if (symbolData) {
           // add search term to store
-          let searchterm = {
-            symbol: term,
-            count: symbolData.messages.length,
-            lastTweetID: symbolData.messages[0].id
-          };
-          // dispatch(addTerm(searchterm));
-          props.addTerm(searchterm);
+          dispatchSearchTerm(symbolData);
+
+          // add tweets to component's state
+          setReceivedTweets(symbolData.messages);
 
           // add tweet to store
-          symbolData.messages.forEach(message => {
-            let linkedBody = message.body.replace(
-              urlRegex,
-              url =>
-                `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
-            );
-            let newMessage = { ...message, body: linkedBody };
-            // dispatch(addTweet(message));
-            // dispatch(addTweet(newMessage));
-            props.addTweet(newMessage);
-          });
+          // symbolData.messages.forEach(message => {
+          //   let linkedBody = message.body.replace(
+          //     urlRegex,
+          //     url =>
+          //       `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+          //   );
+          //   let newMessage = { ...message, body: linkedBody };
+          //   props.addTweet(newMessage);
+          // });
         }
-        console.log('exited foreach');
         setError('');
       } else {
         setError('symbol already entered!');
@@ -55,10 +54,31 @@ export default function Search(props) {
     }
   };
 
+  const dispatchSearchTerm = symbolData => {
+    let searchterm = {
+      symbol: term,
+      count: symbolData.messages.length,
+      lastTweetID: symbolData.messages[0].id
+    };
+    props.addTerm(searchterm);
+  };
+
+  const dispatchTweets = () => {
+    receivedTweets.forEach(message => {
+      let linkedBody = message.body.replace(
+        urlRegex,
+        url =>
+          `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+      );
+      let newMessage = { ...message, body: linkedBody };
+      props.addTweet(newMessage);
+    });
+  };
+
   const handleSubmitForm = async e => {
     e.preventDefault();
     e.target.reset();
-    handleAddTerm();
+    handleGetTweets();
   };
 
   const handleInput = e => {
@@ -72,17 +92,12 @@ export default function Search(props) {
     ) {
       if (inputdata.length > 1) {
         document.getElementById('search-input').value = '';
-        handleAddTerm();
+        handleGetTweets();
       } else {
         document.getElementById('search-input').value = '';
       }
     }
   };
-
-  // const handleRemoveTerm = term => {
-  //   dispatch(removeTerm(term));
-  //   dispatch(removeTweets(term.symbol));
-  // };
 
   return (
     <div id="search-bar">
