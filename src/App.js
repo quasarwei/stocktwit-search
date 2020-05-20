@@ -44,12 +44,7 @@ function App(props) {
           .sort((a, b) => b.id - a.id) // sort by id, latest first
           .map(tweet => {
             return (
-              <CSSTransition
-                timeout={200}
-                classNames="fade"
-                key={tweet.id}
-                unmounOnExit
-              >
+              <CSSTransition timeout={500} classNames="fade" key={tweet.id}>
                 <TweetCard tweet={tweet} />
               </CSSTransition>
             );
