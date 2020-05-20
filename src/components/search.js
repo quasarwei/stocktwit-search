@@ -10,7 +10,7 @@ export default function Search(props) {
   const [term, setTerm] = useState('');
   const [error, setError] = useState();
   const [receivedTweets, setReceivedTweets] = useState([]);
-  const [backspaceDeletes, setBackspaceDeletes] = useState(false);
+  const [backspaceDeletes, setBackspaceDeletes] = useState(true);
   const [lastTerm, setLastTerm] = useState('');
 
   const terms = useSelector(state => state.searchTerms);
@@ -30,6 +30,7 @@ export default function Search(props) {
         console.log(symbolData);
 
         if (symbolData) {
+          setBackspaceDeletes(true);
           // add search term to store
           dispatchSearchTerm(symbolData);
           setLastTerm(term);
@@ -96,16 +97,17 @@ export default function Search(props) {
   };
 
   const handleDelete = e => {
-    // e.preventDefault();
-    // console.log(e.key);
     if (e.key === 'Backspace' && backspaceDeletes && terms.length) {
       props.removeTerm(lastTerm);
+      setLastTerm(terms[terms.length - 1].symbol);
       console.log('removing last term');
+      setBackspaceDeletes(true);
     }
   };
 
   const setReleaseState = e => {
-    if (e.key === 'Backspace' && !term.length) {
+    console.log(e.target.value);
+    if (e.key === 'Backspace' && !e.target.value) {
       setBackspaceDeletes(true);
     } else {
       setBackspaceDeletes(false);

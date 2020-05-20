@@ -19,7 +19,7 @@ function App(props) {
     props.dispatch(
       removeTweets({
         termToRemove: symbol,
-        allSymbols: props.symbols.map(symbol => symbol.symbol)
+        allSymbols: props.searchTerms.map(symbol => symbol.symbol)
       })
     );
   };
@@ -34,6 +34,7 @@ function App(props) {
         removeTerm={symbol => handleRemoveTerm(symbol)}
         editTerm={term => props.dispatch(editTerm(term))}
         addTweet={message => props.dispatch(addTweet(message))}
+        searchTerms={props.searchTerms}
       />
 
       {/* tweet list */}
@@ -47,7 +48,7 @@ function App(props) {
 }
 
 const mapStateToProps = state => {
-  return { symbols: state.searchTerms, tweets: state.tweets };
+  return { searchTerms: state.searchTerms, tweets: state.tweets };
 };
 
 export default connect(mapStateToProps)(App);
