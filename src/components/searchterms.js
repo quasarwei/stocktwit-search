@@ -63,7 +63,7 @@ export default function SearchTerms(props) {
     <div className="searchterm">
       <span>{props.term.symbol}</span>
       <span>({props.term.count})</span>
-      <button onClick={() => props.removeTerm(props.term)}>x</button>
+      <button onClick={() => props.removeTerm(props.term.symbol)}>x</button>
     </div>
   );
 }

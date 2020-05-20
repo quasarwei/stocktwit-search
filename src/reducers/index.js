@@ -7,7 +7,7 @@ const searchTerms = (state = [], action) => {
       return [...state, action.payload];
     case 'REMOVE-TERM':
       const indexToRemove = state.findIndex(
-        term => term.symbol === action.payload.symbol
+        term => term.symbol === action.payload
       );
       if (indexToRemove !== -1) newState.splice(indexToRemove, 1);
       return newState;

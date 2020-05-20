@@ -7,9 +7,11 @@ import SearchTerms from './searchterms';
 import './search.css';
 
 export default function Search(props) {
-  const [term, setTerm] = useState(0);
+  const [term, setTerm] = useState('');
   const [error, setError] = useState();
   const [receivedTweets, setReceivedTweets] = useState([]);
+  const [backspaceDeletes, setBackspaceDeletes] = useState(false);
+  const [lastTerm, setLastTerm] = useState('');
 
   const terms = useSelector(state => state.searchTerms);
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
@@ -30,6 +32,7 @@ export default function Search(props) {
         if (symbolData) {
           // add search term to store
           dispatchSearchTerm(symbolData);
+          setLastTerm(term);
 
           // add tweets to component's state
           setReceivedTweets(symbolData.messages);
@@ -67,11 +70,13 @@ export default function Search(props) {
   const handleSubmitForm = async e => {
     e.preventDefault();
     e.target.reset();
-    handleGetTweets();
+    setBackspaceDeletes(true);
+    if (term.length > 0) handleGetTweets();
   };
 
   const handleInput = e => {
     // e.preventDefault();
+    console.log(e.key);
     e.target.value = e.target.value.toUpperCase();
     const inputdata = e.target.value;
     setTerm(inputdata);
@@ -82,10 +87,30 @@ export default function Search(props) {
       if (inputdata.length > 1) {
         document.getElementById('search-input').value = '';
         handleGetTweets();
+        setBackspaceDeletes(true);
       } else {
         document.getElementById('search-input').value = '';
+        setBackspaceDeletes(true);
       }
     }
+  };
+
+  const handleDelete = e => {
+    // e.preventDefault();
+    // console.log(e.key);
+    if (e.key === 'Backspace' && backspaceDeletes && terms.length) {
+      props.removeTerm(lastTerm);
+      console.log('removing last term');
+    }
+  };
+
+  const setReleaseState = e => {
+    if (e.key === 'Backspace' && !term.length) {
+      setBackspaceDeletes(true);
+    } else {
+      setBackspaceDeletes(false);
+    }
+    console.log('key released');
   };
 
   return (
@@ -109,7 +134,9 @@ export default function Search(props) {
           type="text"
           className={`search--error`}
           id="search-input"
+          onKeyDown={e => handleDelete(e)}
           onChange={e => handleInput(e)}
+          onKeyUp={e => setReleaseState(e)}
           placeholder="Enter stock symbol"
           autoFocus
         />

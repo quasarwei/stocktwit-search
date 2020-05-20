@@ -14,11 +14,11 @@ import './App.css';
 function App(props) {
   useEffect(() => {}, [props.symbols]);
 
-  const handleRemoveTerm = term => {
-    props.dispatch(removeTerm(term));
+  const handleRemoveTerm = symbol => {
+    props.dispatch(removeTerm(symbol));
     props.dispatch(
       removeTweets({
-        termToRemove: term.symbol,
+        termToRemove: symbol,
         allSymbols: props.symbols.map(symbol => symbol.symbol)
       })
     );
@@ -31,7 +31,7 @@ function App(props) {
       {/* search box */}
       <Search
         addTerm={term => props.dispatch(addTerm(term))}
-        removeTerm={term => handleRemoveTerm(term)}
+        removeTerm={symbol => handleRemoveTerm(symbol)}
         editTerm={term => props.dispatch(editTerm(term))}
         addTweet={message => props.dispatch(addTweet(message))}
       />
