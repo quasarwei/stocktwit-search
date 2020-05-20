@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import stocktwitService from '../services/stocktwit-service';
 
 import SearchTerms from './searchterms';
@@ -21,16 +22,15 @@ export default function Search(props) {
   }, [receivedTweets]);
 
   const handleGetTweets = async () => {
+    setBackspaceDeletes(true);
     try {
       // check if searchterm has already been entered
       const termIndex = terms.findIndex(t => t.symbol === term);
 
       if (termIndex === -1) {
         const symbolData = await stocktwitService.getSymbol(term, '');
-        console.log(symbolData);
 
         if (symbolData) {
-          setBackspaceDeletes(true);
           // add search term to store
           dispatchSearchTerm(symbolData);
           setLastTerm(term);
@@ -76,8 +76,6 @@ export default function Search(props) {
   };
 
   const handleInput = e => {
-    // e.preventDefault();
-    console.log(e.key);
     e.target.value = e.target.value.toUpperCase();
     const inputdata = e.target.value;
     setTerm(inputdata);
@@ -100,36 +98,40 @@ export default function Search(props) {
     if (e.key === 'Backspace' && backspaceDeletes && terms.length) {
       props.removeTerm(lastTerm);
       setLastTerm(terms[terms.length - 1].symbol);
-      console.log('removing last term');
       setBackspaceDeletes(true);
     }
   };
 
   const setReleaseState = e => {
-    console.log(e.target.value);
-    if (e.key === 'Backspace' && !e.target.value) {
+    if (!e.target.value) {
       setBackspaceDeletes(true);
     } else {
       setBackspaceDeletes(false);
     }
-    console.log('key released');
   };
 
   return (
     <div id="search-bar">
-      <div className="searchterms">
+      <TransitionGroup component={null}>
         {terms &&
-          terms.map((term, i) => (
-            <SearchTerms
-              term={term}
-              removeTerm={term => props.removeTerm(term)}
-              editTerm={term => props.editTerm(term)}
-              addTweet={term => props.addTweet(term)}
-              termIndex={i}
-              key={`${term.symbol}`}
-            />
-          ))}
-      </div>
+          terms.map((term, i) => {
+            return (
+              <CSSTransition
+                classNames="fade"
+                key={`${term.symbol}`}
+                timeout={600}
+              >
+                <SearchTerms
+                  term={term}
+                  removeTerm={term => props.removeTerm(term)}
+                  editTerm={term => props.editTerm(term)}
+                  addTweet={term => props.addTweet(term)}
+                  termIndex={i}
+                />
+              </CSSTransition>
+            );
+          })}
+      </TransitionGroup>
       <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
         <input
           name="symbol-search"

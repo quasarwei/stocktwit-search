@@ -11,21 +11,6 @@
   margin-bottom: 1rem;
 }
 
-.searchterms {
-  display: flex;
-  flex-direction: row;
-
-  /* width: 90%; */
-  width: auto;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  /* max-width: 720px; */
-  margin: 0.5rem 0;
-  margin: 0;
-  /* border: 0.1px solid blue; */
-  /* flex-basis: 0; */
-  flex-grow: 0;
-
-  /* padding:.5rem .25rem ; */
-  /* border: 1px solid black; */
+.tweet-container {
+  position: relative;
 }

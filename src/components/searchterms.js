@@ -13,12 +13,11 @@ export default function SearchTerms(props) {
     return () => {
       stopUpdateTweets();
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateTweets = () => {
     fetchtweets = setInterval(async () => {
       const symbolData = await getNewTweets(term);
-      console.log(symbolData);
       const numMessages = symbolData.messages.length;
 
       // check if there are any new tweets first
@@ -43,7 +42,6 @@ export default function SearchTerms(props) {
           props.addTweet(newMessage);
         });
       }
-      console.log(numMessages);
     }, 60000);
   };
 

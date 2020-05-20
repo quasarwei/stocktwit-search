@@ -3,10 +3,36 @@
   padding: 0.25rem 0.35rem;
   display: flex;
   align-items: center;
-  /* margin: 0.15rem 0.25rem; */
   margin: 0.15rem 0.25rem;
   margin-left: 0;
   height: 2rem;
+}
+
+.searchterm.fade-enter {
+  width: 0;
+  padding: 0;
+  color: white;
+  opacity: 0;
+}
+.searchterm.fade-enter-active {
+  width: 90px;
+  padding: 0.25rem 0.35rem;
+  color: black;
+  opacity: 1;
+  transition: all 600ms ease-in-out;
+}
+.searchterm.fade-exit {
+  width: 90px;
+  padding: 0.25rem 0.35rem;
+  color: black;
+  opacity: 1;
+}
+.searchterm.fade-exit-active {
+  width: 0;
+  padding: 0;
+  color: white;
+  opacity: 0;
+  transition: all 600ms ease-in-out;
 }
 
 .searchterm span {

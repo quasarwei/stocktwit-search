@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import Search from './components/search';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import {
   removeTerm,
   removeTweets,
@@ -8,6 +8,7 @@ import {
   addTweet,
   editTerm
 } from './actions';
+import Search from './components/search';
 import TweetCard from './components/tweetcard';
 import './App.css';
 
@@ -38,11 +39,22 @@ function App(props) {
       />
 
       {/* tweet list */}
-      {props.tweets
-        .sort((a, b) => b.id - a.id) // sort by id, latest first
-        .map(tweet => {
-          return <TweetCard tweet={tweet} key={tweet.id} />;
-        })}
+      <TransitionGroup className="tweet-container">
+        {props.tweets
+          .sort((a, b) => b.id - a.id) // sort by id, latest first
+          .map(tweet => {
+            return (
+              <CSSTransition
+                timeout={200}
+                classNames="fade"
+                key={tweet.id}
+                unmounOnExit
+              >
+                <TweetCard tweet={tweet} />
+              </CSSTransition>
+            );
+          })}
+      </TransitionGroup>
     </div>
   );
 }
