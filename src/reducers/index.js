@@ -29,7 +29,6 @@ const tweets = (state = [], action) => {
       if (state.find(tweet => tweet.id === action.payload.id)) return state;
       return [...state, action.payload];
     case 'REMOVE-TWEETS':
-      console.log(action.payload);
       const filteredTweets = state.filter(tweet => {
         let match = true;
         let numMatches = 0;
@@ -40,7 +39,6 @@ const tweets = (state = [], action) => {
           for (let j = 0; j < action.payload.allSymbols.length; j++) {
             if (tweet.symbols[i].symbol === action.payload.allSymbols[j]) {
               numMatches++;
-              console.log(numMatches);
               if (numMatches > 1) break;
             }
           }
@@ -49,7 +47,6 @@ const tweets = (state = [], action) => {
         }
         return numMatches > 1 ? true : match;
       });
-      console.log(filteredTweets);
       return filteredTweets;
     default:
       return state;

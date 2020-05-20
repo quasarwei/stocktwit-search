@@ -33,17 +33,6 @@ export default function Search(props) {
 
           // add tweets to component's state
           setReceivedTweets(symbolData.messages);
-
-          // add tweet to store
-          // symbolData.messages.forEach(message => {
-          //   let linkedBody = message.body.replace(
-          //     urlRegex,
-          //     url =>
-          //       `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
-          //   );
-          //   let newMessage = { ...message, body: linkedBody };
-          //   props.addTweet(newMessage);
-          // });
         }
         setError('');
       } else {
@@ -114,7 +103,6 @@ export default function Search(props) {
             />
           ))}
       </div>
-      {/* {error && <span className="error">{error}</span>} */}
       <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
         <input
           name="symbol-search"
@@ -125,9 +113,7 @@ export default function Search(props) {
           placeholder="Enter stock symbol"
           autoFocus
         />
-        {/* <div > */}
         {error && <p className="error">{error}</p>}
-        {/* </div> */}
         <button>search</button>
       </form>
     </div>

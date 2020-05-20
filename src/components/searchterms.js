@@ -5,10 +5,7 @@ import './searchterms.css';
 
 export default function SearchTerms(props) {
   let fetchtweets;
-
-  // const [count, setCount] = useState(props.term.count);
   let term = props.term;
-
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
   useEffect(() => {
@@ -24,7 +21,9 @@ export default function SearchTerms(props) {
       console.log(symbolData);
       const numMessages = symbolData.messages.length;
 
+      // check if there are any new tweets first
       if (numMessages) {
+        // dispatch term object with updated tweet count and lastTweetID
         let editedSearchTerm = {
           symbol: props.term.symbol,
           count: term.count + numMessages,
@@ -33,6 +32,7 @@ export default function SearchTerms(props) {
         term = editedSearchTerm;
         props.editTerm(editedSearchTerm);
 
+        // dispatch new tweets
         symbolData.messages.forEach(message => {
           let linkedBody = message.body.replace(
             urlRegex,

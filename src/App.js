@@ -36,24 +36,9 @@ function App(props) {
         addTweet={message => props.dispatch(addTweet(message))}
       />
 
-      {/* entered search terms */}
-      {/* <div className="searchterms"> */}
-      {/*   {props.symbols && */}
-      {/*     props.symbols.map((term, i) => ( */}
-      {/*       <SearchTerms */}
-      {/*         term={term} */}
-      {/*         removeTerm={term => handleRemoveTerm(term)} */}
-      {/*         editTerm={term => props.dispatch(editTerm(term))} */}
-      {/*         addTweet={message => props.dispatch(addTweet(message))} */}
-      {/*         termIndex={i} */}
-      {/*         key={`${term.symbol}`} */}
-      {/*       /> */}
-      {/*     ))} */}
-      {/* </div> */}
-
       {/* tweet list */}
       {props.tweets
-        .sort((a, b) => b.id - a.id)
+        .sort((a, b) => b.id - a.id) // sort by id, latest first
         .map(tweet => {
           return <TweetCard tweet={tweet} key={tweet.id} />;
         })}
