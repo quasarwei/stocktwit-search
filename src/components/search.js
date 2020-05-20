@@ -15,6 +15,7 @@ export default function Search(props) {
   const [lastTerm, setLastTerm] = useState('');
 
   const terms = useSelector(state => state.searchTerms);
+
   const urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/gi;
 
   useEffect(() => {
@@ -97,7 +98,11 @@ export default function Search(props) {
   const handleDelete = e => {
     if (e.key === 'Backspace' && backspaceDeletes && terms.length) {
       props.removeTerm(lastTerm);
-      setLastTerm(terms[terms.length - 1].symbol);
+      if (terms[terms.length - 2]) {
+        setLastTerm(terms[terms.length - 2].symbol);
+      } else {
+        setLastTerm(terms[terms.length - 1].symbol);
+      }
       setBackspaceDeletes(true);
     }
   };
@@ -119,7 +124,7 @@ export default function Search(props) {
               <CSSTransition
                 classNames="fade"
                 key={`${term.symbol}`}
-                timeout={600}
+                timeout={500}
               >
                 <SearchTerms
                   term={term}

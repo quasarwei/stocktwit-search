@@ -7,15 +7,14 @@
   max-width: 720px;
   top: 100%;
   position: relative;
-  /* height: 0; */
-  /* padding: 0; */
+  z-index: -1;
 }
 
 .tweet.fade-enter {
   opacity: 0;
   height: 0;
   /* padding: 0; */
-  top: -200px;
+  top: -300px;
   /* left: -100%; */
 }
 
@@ -25,7 +24,7 @@
   /* padding: 0.8rem 0.8rem; */
   top: 0;
   /* left: 0; */
-  transition: all 500ms ease-in-out;
+  transition: all 250ms ease-out;
 }
 .tweet.fade-exit {
   opacity: 1;
@@ -39,7 +38,7 @@
   /* height: 0; */
   /* padding: 0; */
   left: 100%;
-  transition: all 500ms ease-in-out;
+  transition: all 250ms ease-in;
 }
 
 .tweet__body {
