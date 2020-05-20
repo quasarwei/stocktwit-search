@@ -51,7 +51,7 @@ export default function Search(props) {
         setError('symbol already entered!');
       }
     } catch (e) {
-      // setError(e.errors[0].message);
+      setError(e.errors[0].message);
     }
   };
 
@@ -99,17 +99,20 @@ export default function Search(props) {
             />
           ))}
       </div>
-      {error && <span className="error">{error}</span>}
+      {/* {error && <span className="error">{error}</span>} */}
       <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
         <input
           name="symbol-search"
           type="text"
+          className={`search--error`}
           id="search-input"
           onChange={e => handleInput(e)}
           placeholder="Enter stock symbol"
           autoFocus
         />
-
+        {/* <div > */}
+        {error && <p className="error">{error}</p>}
+        {/* </div> */}
         <button>search</button>
       </form>
     </div>

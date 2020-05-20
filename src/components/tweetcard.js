@@ -27,6 +27,8 @@ export default function TweetCard(props) {
             hour: '2-digit',
             minute: '2-digit'
           })}
+          {/* {tweet_time.toLocaleString('en-US')} */}
+          {/* {props.tweet.created_at} */}
         </span>
       </div>
       {/* this method puts users at risk to xss attacks, try and find another way */}

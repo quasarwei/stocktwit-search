@@ -12,6 +12,7 @@ form {
   flex-grow: 1;
   align-items: center;
   height: 2rem;
+  position: relative;
 }
 
 #search-bar {
@@ -41,10 +42,18 @@ form {
   border: 1px solid black;
 }
 
+#search-input:hover {
+}
+
 .error {
   color: red;
-  font-size: 14px;
+  font-size: 12px;
   text-align: left;
+  position: absolute;
+  right: 60px;
+  bottom: 2px;
+  margin: 0;
+  padding: 0;
 }
 
 form button {
