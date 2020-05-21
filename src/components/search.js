@@ -44,8 +44,7 @@ export default function Search(props) {
         setError('symbol already entered!');
       }
     } catch (e) {
-      console.log(e);
-      // setError(e.errors[0].message);
+      setError(e.errors[0].message);
     }
   };
 
