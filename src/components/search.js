@@ -66,8 +66,7 @@ export default function Search(props) {
           `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
       );
       let newMessage = { ...message, body: linkedBody };
-      // props.addTweet(newMessage);
-      props.addTweet(message);
+      props.addTweet(newMessage);
     });
   };
 

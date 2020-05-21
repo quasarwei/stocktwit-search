@@ -1,17 +1,12 @@
 import React from 'react';
-import twitter from 'twitter-text';
-import '../services/stocktwits-text';
+// import twitter from 'twitter-text';
+// import Stwt from '../services/stocktwits-text';
 
 import './tweetcard.css';
 
 export default function TweetCard(props) {
-  // const makeBody = () => ({
-  //   __html: props.tweet.body
-  // });
-
   const makeBody = () => ({
-    // __html: props.tweet.body
-    __html: twitter.autoLink(twitter.htmlEscape(props.tweet.body))
+    __html: props.tweet.body
   });
 
   const tweet_time = new Date(props.tweet.created_at);
@@ -52,10 +47,6 @@ export default function TweetCard(props) {
       </div>
       {/* this method puts users at risk to xss attacks, try and find another way */}
       <p className="tweet__body" dangerouslySetInnerHTML={makeBody()}></p>
-      {/* <p className="tweet__body"> */}
-      {/*   {twitter.autoLink(twitter.htmlEscape(props.tweet.body))} */}
-      {/* </p> */}
-      {/* <p className="tweet__body">{props.tweet.body}</p> */}
       {/* <p className="tweet__body" >{props.tweet.body}</p> */}
       {/* <span>{tweet_time}</span> */}
     </div>
