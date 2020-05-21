@@ -14,7 +14,6 @@ import './App.css';
 
 function App(props) {
   useEffect(() => {}, [props.symbols]);
-  console.log(process.env);
 
   // remove searchterm and corresponding tweet results from store
   const handleRemoveTerm = symbol => {
