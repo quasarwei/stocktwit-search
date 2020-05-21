@@ -15,6 +15,7 @@ import './App.css';
 function App(props) {
   useEffect(() => {}, [props.symbols]);
 
+  // remove searchterm and corresponding tweet results from store
   const handleRemoveTerm = symbol => {
     props.dispatch(removeTerm(symbol));
     props.dispatch(
@@ -35,16 +36,20 @@ function App(props) {
         removeTerm={symbol => handleRemoveTerm(symbol)}
         editTerm={term => props.dispatch(editTerm(term))}
         addTweet={message => props.dispatch(addTweet(message))}
-        searchTerms={props.searchTerms}
       />
 
       {/* tweet list */}
-      <TransitionGroup className="tweet-container">
+      <TransitionGroup component={null}>
         {props.tweets
           .sort((a, b) => b.id - a.id) // sort by id, latest first
           .map(tweet => {
             return (
-              <CSSTransition timeout={500} classNames="fade" key={tweet.id}>
+              <CSSTransition
+                timeout={300}
+                classNames="fade"
+                key={tweet.id}
+                unmountOnExit
+              >
                 <TweetCard tweet={tweet} />
               </CSSTransition>
             );

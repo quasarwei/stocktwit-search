@@ -20,7 +20,7 @@
   padding: 0.25rem 0.35rem;
   color: black;
   opacity: 1;
-  transition: all 500ms ease-out;
+  transition: all 300ms ease-out;
 }
 .searchterm.fade-exit {
   width: 90px;
@@ -33,7 +33,7 @@
   padding: 0;
   color: white;
   opacity: 0;
-  transition: all 200ms ease-in;
+  transition: all 300ms ease-in;
 }
 
 .searchterm span {

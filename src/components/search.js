@@ -59,6 +59,7 @@ export default function Search(props) {
 
   const dispatchTweets = () => {
     receivedTweets.forEach(message => {
+      // detect url inside tweet body with regex, put inside <a> tags
       let linkedBody = message.body.replace(
         urlRegex,
         url =>
@@ -124,7 +125,8 @@ export default function Search(props) {
               <CSSTransition
                 classNames="fade"
                 key={`${term.symbol}`}
-                timeout={500}
+                timeout={300}
+                unmountOnExit
               >
                 <SearchTerms
                   term={term}

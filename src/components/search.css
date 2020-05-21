@@ -16,7 +16,6 @@ form {
   display: flex;
   margin: 0.15rem 0;
   padding: 0;
-  /* border: 1px solid black; */
   flex-basis: auto;
   flex-grow: 1;
   align-items: center;
@@ -55,15 +54,4 @@ form button {
   padding: 0.15rem 0.25rem;
   width: auto;
   height: 2rem;
-}
-
-.searchterms {
-  display: flex;
-  flex-direction: row;
-  width: auto;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  margin: 0.5rem 0;
-  margin: 0;
-  flex-grow: 0;
 }
