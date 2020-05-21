@@ -7,7 +7,7 @@
   max-width: 720px;
   top: 100%;
   position: relative;
-  z-index: -1;
+  /* z-index: -1; */
 }
 
 .tweet.fade-enter {
@@ -42,6 +42,7 @@
 .tweet-heading {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 
 .tweet__user {
