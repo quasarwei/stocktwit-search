@@ -1,9 +1,15 @@
-// export const stwt = window.stwt || {};
-export default function Stwt() {
-  let txt = {
+// this is taken from the official stocktwits-text-js repo
+// detects cashtags and surrounds them in a link tag
+// converted into an es6 module to use within React
+//
+// https://github.com/stocktwits/stocktwits-text-js/blob/master/
+
+export const Stwt = {
+  txt: {
     regexen: {
       cashtag: /(^|[\s\,\.\-\+\(\/\"\']\$?|^\$)(\$([a-z1-9]{1}[a-z]{1,3}_F|(?!\d+[bmkts]{1}?(il(lion)?|ln|m|n)?\b|[\d]+\b)(?!\d+usd)[a-z0-9]{1,9}(?:[-\.]{1}[a-z]{1,2})?(?:[-\.]{1}[a-z]{1,2})?))\b(?!\$)/gi
     },
+    num: 5,
     extractCashtags: function (text) {
       var matches = [];
 
@@ -13,7 +19,6 @@ export default function Stwt() {
 
       return matches;
     },
-
     autoLinkCashtags: function (text, options) {
       if (typeof options === 'function') {
         return text.replace(this.regexen.cashtag, function (
@@ -82,6 +87,11 @@ export default function Stwt() {
         }
         return before + '<a' + html + '>' + cashtag + '</a>';
       });
+    },
+
+    writeText: function () {
+      // return 'test';
+      return this.num;
     }
-  };
-}
+  }
+};

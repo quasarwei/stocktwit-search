@@ -1,12 +1,16 @@
 import React from 'react';
-// import twitter from 'twitter-text';
-// import Stwt from '../services/stocktwits-text';
+import { Stwt } from '../helpers/stocktwits-text';
 
 import './tweetcard.css';
 
 export default function TweetCard(props) {
+  const newBody = Stwt.txt.autoLinkCashtags(props.tweet.body, {
+    urlTarget: '_blank',
+    urlNofollow: true
+  });
+
   const makeBody = () => ({
-    __html: props.tweet.body
+    __html: newBody
   });
 
   const tweet_time = new Date(props.tweet.created_at);
@@ -47,8 +51,6 @@ export default function TweetCard(props) {
       </div>
       {/* this method puts users at risk to xss attacks, try and find another way */}
       <p className="tweet__body" dangerouslySetInnerHTML={makeBody()}></p>
-      {/* <p className="tweet__body" >{props.tweet.body}</p> */}
-      {/* <span>{tweet_time}</span> */}
     </div>
   );
 }
