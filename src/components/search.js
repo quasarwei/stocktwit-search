@@ -10,6 +10,7 @@ import './search.css';
 export default function Search(props) {
   const [term, setTerm] = useState('');
   const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
   const [receivedTweets, setReceivedTweets] = useState([]);
   const [backspaceDeletes, setBackspaceDeletes] = useState(true);
   const [lastTerm, setLastTerm] = useState('');
@@ -29,6 +30,7 @@ export default function Search(props) {
       const termIndex = terms.findIndex(t => t.symbol === term);
 
       if (termIndex === -1) {
+        setLoading(true);
         const symbolData = await stocktwitService.getSymbol(term, '');
 
         if (symbolData) {
@@ -39,11 +41,13 @@ export default function Search(props) {
           // add tweets to component's state
           setReceivedTweets(symbolData.messages);
         }
+        setLoading(false);
         setError('');
       } else {
         setError('symbol already entered!');
       }
     } catch (e) {
+      setLoading(false);
       setError(e.errors[0].message);
     }
   };
@@ -117,43 +121,46 @@ export default function Search(props) {
   };
 
   return (
-    <div id="search-bar">
-      <TransitionGroup component={null}>
-        {terms &&
-          terms.map((term, i) => {
-            return (
-              <CSSTransition
-                classNames="fade"
-                key={`${term.symbol}`}
-                timeout={300}
-                unmountOnExit
-              >
-                <SearchTerms
-                  term={term}
-                  removeTerm={term => props.removeTerm(term)}
-                  editTerm={term => props.editTerm(term)}
-                  addTweet={term => props.addTweet(term)}
-                  termIndex={i}
-                />
-              </CSSTransition>
-            );
-          })}
-      </TransitionGroup>
-      <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
-        <input
-          name="symbol-search"
-          type="text"
-          className={`search--error`}
-          id="search-input"
-          onKeyDown={e => handleDelete(e)}
-          onChange={e => handleInput(e)}
-          onKeyUp={e => setReleaseState(e)}
-          placeholder="Enter stock symbol"
-          autoFocus
-        />
-        {error && <p className="error">{error}</p>}
-        <button>search</button>
-      </form>
-    </div>
+    <>
+      <div id="search-bar">
+        <TransitionGroup component={null}>
+          {terms &&
+            terms.map((term, i) => {
+              return (
+                <CSSTransition
+                  classNames="fade"
+                  key={`${term.symbol}`}
+                  timeout={300}
+                  unmountOnExit
+                >
+                  <SearchTerms
+                    term={term}
+                    removeTerm={term => props.removeTerm(term)}
+                    editTerm={term => props.editTerm(term)}
+                    addTweet={term => props.addTweet(term)}
+                    termIndex={i}
+                  />
+                </CSSTransition>
+              );
+            })}
+        </TransitionGroup>
+        <form id="search-form" onSubmit={e => handleSubmitForm(e)}>
+          <input
+            name="symbol-search"
+            type="text"
+            className={`search--error`}
+            id="search-input"
+            onKeyDown={e => handleDelete(e)}
+            onChange={e => handleInput(e)}
+            onKeyUp={e => setReleaseState(e)}
+            placeholder="Enter stock symbol"
+            autoFocus
+          />
+          {error && <p className="error">{error}</p>}
+          <button>search</button>
+        </form>
+      </div>
+      {loading && <p>Loading</p>}
+    </>
   );
 }
